@@ -19,3 +19,13 @@ models:
             tests:
                 - unique
                 - not_null
+
+sources:
+  - name: raw
+    tables:
+      - name: external_playlist_summary
+        description: "Summary dataset provided by Spotify"
+      - name: jake_playlist_metrics
+        description: "Jake's music I enjoy playlist against the tracks api for various metrics"
+      - name: jake_squabbles
+        description: "Export of 2019+ squabbles via last.fm for Jake's Spotify listening"
