@@ -2,30 +2,81 @@
 version: 2
 
 models:
-    - name: my_first_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
-
-    - name: my_second_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
+  - name: external_playlist_summary
+    description: "Summary dataset provided by Spotify"
+    columns:
+      - name: playlist_uri
+        description: "The key, Spotify uri of the playlist"
+        tests:
+          - not_null
+      - name: owner
+        description: "Playlist owner, Spotify username"
+      - name: streams
+        description: "Number of streams from playlist today"
+      - name: streams30s
+        description: "Number of streams over 30 seconds from playlist today"
+      - name: dau
+        description: "Number of Daily Active Users"
+      - name: wau
+        description: "Number of Weekly Active Users"
+      - name: mau
+        description: "Number of Monthly Active Users"
+      - name: mau_previous_month
+        description: "Number of Monthly Active Users in the month prior to this one"
+      - name: mau_both_months
+        description: "Number of users that were active on the playlist both this and the previous month"
+      - name: users
+        description: "Users streaming at least one stream of any time duration (including skipped streams) in past month"
+      - name: skippers
+        description: "Number of users who skipped more than 90% of their total Spotify streams today and also used this playlist"
+      - name: owner_country
+        description: "Country of the playlist owner"
+      - name: n_tracks
+        description: "Number of tracks in playlist"
+      - name: n_local_tracks
+        description: "Change in local file tracks on playlist since yesterday"
+      - name: n_artists
+        description: "Number of unique artists in playlist"
+      - name: n_albums
+        description: "Number of unique albums in playlist"
+      - name: monthly_stream30s
+        description: "Number of streams over 30 seconds this month"
+      - name: monthly_owner_stream30s
+        description: "Number of streams of 30 seconds by playlist owner this month"
+      - name: tokens
+        description: "List of playlist title tokens, stopwords and punctuation removed"
+      - name: genre_1
+        description: "No. 1 genre by weight of playlist tracks, from Gracenote Metadata"
+      - name: genre_2
+        description: "No. 2 genre by weight of playlist tracks, from Gracenote Metadata"
+      - name: genre_3
+        description: "No. 3 genre by weight of playlist tracks, from Gracenote Metadata"
+      - name: mood_1
+        description: "No. 1 mood by weight of playlist tracks, from Gracenote Metadata"
+      - name: mood_2
+        description: "No. 2 mood by weight of playlist tracks, from Gracenote Metadata"
+      - name: mood_3
+        description: "No. 3 mood by weight of playlist tracks, from Gracenote Metadata"
+  - name: jake_squabbles
+    description: "Export of 2019+ squabbles via last.fm for Jake's Spotify listening"
+    columns:
+      - name: artist_track
+        tests:
+          - not_null
 
 sources:
   - name: raw
     tables:
       - name: external_playlist_summary
         description: "Summary dataset provided by Spotify"
+        columns:
+          - name: playlist_uri
+            tests:
+              - not_null
       - name: jake_playlist_metrics
         description: "Jake's music I enjoy playlist against the tracks api for various metrics"
+        columns:
+          - name: name
+            tests:
+              - not_null
       - name: jake_squabbles
-        description: "Export of 2019+ squabbles via last.fm for Jake's Spotify listening"
